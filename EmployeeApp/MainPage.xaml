@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="EmployeeApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EmployeeApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:EmployeeApp.Model"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="EmployeeListDataTemplate" x:DataType="data:Employee">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Image Source="{x:Bind Image}" HorizontalAlignment="Center" Width="70" Height="100"/>
+                <StackPanel Margin="20,0,0,0">
+                    <TextBlock Text="{x:Bind Fullname}" HorizontalAlignment="Left" FontSize="16"/>
+                    <TextBlock Text="{x:Bind JobTitle}" HorizontalAlignment="Left" FontSize="14"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <GridView ItemsSource="{x:Bind ViewModel.Employees}"
+              ItemClick="ListView_ItemClick"
+              IsItemClickEnabled="True"
+              ItemTemplate="{StaticResource EmployeeListDataTemplate}">
+        </GridView>
+        <TextBlock Grid.Row="1"
+               x:Name="ResultTextBlock"
+               FontSize="24"
+               FontWeight="Bold"
+               Margin="20,20,0,0"/>
+    </Grid>
+</Page>
