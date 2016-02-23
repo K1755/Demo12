@@ -57,5 +57,39 @@ namespace EmployeeApp2
             // select firstname
             FirstnameTextBox.Focus(FocusState.Programmatic);
         }
+
+        private void EmployeesGridView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            // selected employee
+            Employee employee = (Employee)e.ClickedItem;
+            // update form data
+            FirstnameTextBox.Text = employee.Firstname;
+            LastnameTextBox.Text = employee.Lastname;
+            JobTitleTextBox.Text = employee.JobTitle;
+            ImageComboBox.SelectedValue = employee.Image;
+        }
+
+        private void ModifyEmployeeButton_Click(object sender, RoutedEventArgs e)
+        {
+            // get selected employee from GridView
+            Employee employee = (Employee)EmployeesGridView.SelectedItem;
+            if (employee != null)
+            {
+                // update selected employee's data from form
+                employee.Firstname = FirstnameTextBox.Text;
+                employee.Lastname = LastnameTextBox.Text;
+                employee.JobTitle = JobTitleTextBox.Text;
+                EmployeeImage employeeImage = (EmployeeImage)ImageComboBox.SelectedItem;
+                employee.Image = employeeImage;
+            }
+        }
+
+        private void DeleteEmployeeButton_Click(object sender, RoutedEventArgs e)
+        {
+            // get selected employee from GridView
+            Employee employee = (Employee)EmployeesGridView.SelectedItem;
+            // remove from collection
+            ViewModel.RemoveEmployee(employee);
+        }
     }
 }
